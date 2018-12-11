@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+PRODID:-//Daniel Demetri//Contacts Birthday Calendar//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Birthdays
+X-WR-CALDESC:Birthdays stored in your contacts
+{% for person in connections -%}
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:{{ person.birthday_date }}
+DTEND;VALUE=DATE:{{ person.day_after_birthday }}
+DTSTAMP:{{ now }}
+RRULE:FREQ=YEARLY;BYMONTH={{ person.birthday_month }};BYMONTHDAY={{ person.birthday_day }}
+UID:{{ person.id }}@contactsbdaycalendar
+X-GOOGLE-CALENDAR-CONTENT-ICON:
+ https://calendar.google.com/googlecalendar/images/cake.gif
+X-GOOGLE-CALENDAR-CONTENT-DISPLAY:chip
+CLASS:PUBLIC
+DESCRIPTION:Phone: {{ person.phone }} \nEmail: {{ person.email }}
+ \n\n<a href="{{ person.delete_birthday_url }}">Delete birthday from contact</a>
+STATUS:CONFIRMED
+SUMMARY:🎂 {{ person.name }}{{ person.possessive }} birthday
+TRANSP:TRANSPARENT
+END:VEVENT
+{% endfor -%}
+END:VCALENDAR

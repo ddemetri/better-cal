@@ -1,0 +1,76 @@
+<html>
+<head>
+	<title>Better Cal Setup – Clean up your Google Calendar birthdays!</title>
+
+	<link rel="stylesheet" type="text/css" href="css/loading.css"/>
+	<link rel="stylesheet" type="text/css" href="css/loading-btn.css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$("button").click(function(event) {
+				event.preventDefault();
+
+				$(this).prop("disabled", true);
+				$(this).addClass("ld-over running");
+
+				var methodElement = $(this).closest("[method]");
+				var method = methodElement.attr("method");
+
+				var personElement = $(this).closest("[person_id]");
+				var personId = $(personElement).attr("person_id");
+
+				var querystring = $.param({
+					personId: personId,
+					token: "{{ token }}"
+				});
+
+				$.get(method + '?' + querystring, function (response) {
+					$(personElement).addClass("deleted");
+				})
+					.fail(function() {
+						console.error("Method failed");
+					});
+			});
+		});
+	</script>
+	<style>
+		.deleted {
+			text-decoration: line-through;
+			color: gray;
+		}
+		.button-container {
+			display: table-cell;
+			overflow: hidden;
+			padding: 4px;
+			vertical-align: middle;
+			white-space: nowrap;
+			font-size: ;
+		}
+	</style>
+</head>
+<body>
+	<h2>Setup Instructions</h2>
+	<h3>1. Copy the URL of your new Birthdays calendar</h3>
+	<input value="{{ bday_ical_url }}" size="50" onclick="this.select();" style="font-size: 18; text-overflow: ellipsis;">
+	
+	<h3>2. Add this URL to Google Calendar</h3>
+	<img src="/images/step_1.jpeg" style="vertical-align: top"/>
+	<img src="/images/step_2.jpeg" style="vertical-align: top"/>
+
+	<h3>3. Delete birthdays you don't want cluttering your calendar</h3>
+	{% for person in connections -%}
+	<div person_id="{{ person.id }}" style="display: table; table-layout: fixed;">
+		<div style="display: table-cell; overflow: hidden; padding: 4px; text-overflow: ellipsis; vertical-align: middle; white-space: nowrap; width: 175px">
+			{{ person.name }}
+		</div>
+		<div method="services/birthday/delete" class="button-container">
+			<button class="ui button">Delete birthday</button>
+		</div>
+		<div method="services/contact/delete" class="button-container">
+			<button>Delete contact</button>
+		</div>
+	</div>
+	{% endfor -%}
+</body>
+</html>

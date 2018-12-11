@@ -1,0 +1,25 @@
+runtime: python27
+threadsafe: yes
+api_version: 1
+
+handlers:
+- url: /images
+  static_dir: images
+
+- url: /css
+  static_dir: css
+
+- url: /static
+  static_dir: static
+
+- url: /googlee4173f5755819c73.html
+  static_files: static/googlee4173f5755819c73.html
+  upload: static/googlee4173f5755819c73.html
+
+- url: .*
+  script: main.app
+  secure: always
+
+libraries:
+- name: jinja2
+  version: latest

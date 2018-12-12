@@ -1,34 +1,18 @@
-import pprint
 import datetime
-import hashlib
-import jinja2
-import json
-import os
 import webapp2
 
-from google.appengine.api import users
-from google.appengine.ext import db
-from google.appengine.ext import ndb
-from googleapiclient.discovery import build
-from httplib2 import Http
-from oauth2client.client import OAuth2WebServerFlow
-from oauth2client.contrib.appengine import CredentialsProperty
-from oauth2client.contrib.appengine import OAuth2Decorator
-from oauth2client.contrib.appengine import StorageByKeyName
-
 from connections import get_connections
-from template import html_jinja_environment
-
-from models.credentials import TokenizedCredentialsModel
+from connections import get_birthday
+from connections import get_primary
+from templates.template import ical_jinja_environment
+from urltoken import TokenProcessor
 
 class CalendarHandler(webapp2.RequestHandler):
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/calendar'
 
-		# Get credentials from token
 		token = self.request.get('token')
-		storage = StorageByKeyName(TokenizedCredentialsModel, token, 'credentials')
-		credentials = storage.get()
+		credentials = TokenProcessor(token).get_credentials()
 
 		# Setup template values
 		ISO_DATETIME_FORMAT = '{0:%Y}{0:%m}{0:%d}T{0:%H}{0:%M}{0:%S}Z'
@@ -61,9 +45,6 @@ class CalendarHandler(webapp2.RequestHandler):
 			
 			
 		# Output calendar
-		ICAL_JINJA_ENVIRONMENT = jinja2.Environment(
-			loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-			newline_sequence='\r\n')
-		template = ICAL_JINJA_ENVIRONMENT.get_template('birthdays.ical')
+		template = ical_jinja_environment.get_template('birthdays.ical')
 		output = template.render(template_values)
 		self.response.write(output)

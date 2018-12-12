@@ -20,12 +20,7 @@
 				var personElement = $(this).closest("[person_id]");
 				var personId = $(personElement).attr("person_id");
 
-				var querystring = $.param({
-					personId: personId,
-					token: "{{ token }}"
-				});
-
-				$.get(method + '?' + querystring, function (response) {
+				$.get(method, function (response) {
 					$(personElement).addClass("deleted");
 				})
 					.fail(function() {
@@ -64,10 +59,10 @@
 		<div style="display: table-cell; overflow: hidden; padding: 4px; text-overflow: ellipsis; vertical-align: middle; white-space: nowrap; width: 175px">
 			{{ person.name }}
 		</div>
-		<div method="services/birthday/delete" class="button-container">
+		<div method="{{ person.delete_birthday }}" class="button-container">
 			<button class="ui button">Delete birthday</button>
 		</div>
-		<div method="services/contact/delete" class="button-container">
+		<div method="{{ person.delete_contact }}" class="button-container">
 			<button>Delete contact</button>
 		</div>
 	</div>

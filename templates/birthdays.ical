@@ -15,7 +15,7 @@ UID:{{ person.id }}@contactsbdaycalendar
 X-GOOGLE-CALENDAR-CONTENT-ICON:
  https://calendar.google.com/googlecalendar/images/cake.gif
 X-GOOGLE-CALENDAR-CONTENT-DISPLAY:chip
-CLASS:PUBLIC
+CLASS:PRIVATE
 DESCRIPTION:Phone: {{ person.phone }} \nEmail: {{ person.email }}
  \n\n<a href="{{ person.delete_birthday_url }}">Delete birthday from contact</a>
 STATUS:CONFIRMED

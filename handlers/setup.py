@@ -31,12 +31,14 @@ class SetupHandler(webapp2.RequestHandler):
 	def get(self):
 		credentials = decorator.get_credentials()
 		
-		token = TokenGenerator(credentials).get_token()
-		
+		user_info_service = build(serviceName='oauth2', version='v2',
+								  http=credentials.authorize(Http()))
+		user_info = user_info_service.userinfo().get().execute()
+
+		token = TokenGenerator(credentials, user_info.get('id')).get_token()
+
 		# Update user info		
-		(UserModel(key=ndb.Key(UserModel, user_id),
-				   user=user_info
-			.put())
+		UserModel(key=ndb.Key(UserModel, user_info.get('id')), user=user_info).put()
 
 		# Remove Google's "Birthdays" calendar
 		calendarService = build('calendar', 'v3', http=credentials.authorize(Http()))

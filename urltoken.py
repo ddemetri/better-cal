@@ -10,13 +10,9 @@ from models.credentials import TokenizedCredentialsModel
 
 
 class TokenGenerator:
-	def __init__(self, credentials):
+	def __init__(self, credentials, user_id):
 		self.credentials = credentials
-
-		user_info_service = build(serviceName='oauth2', version='v2',
-								  http=credentials.authorize(Http()))
-		user_info = user_info_service.userinfo().get().execute()
-		self.user_id = user_info.get('id')
+		self.user_id = user_id
 
 	def get_token(self):
 		secrets_filepath = os.path.join(os.path.dirname(__file__), 'token_secrets.json')

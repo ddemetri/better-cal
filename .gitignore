@@ -1,2 +1,4 @@
 lib
 *.pyc
+oauth_secrets.json
+token_secrets.json

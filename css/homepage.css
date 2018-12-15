@@ -1,0 +1,27 @@
+#BACKGROUND {
+	position: absolute;
+	top: 0px; 
+	width: 100%;
+	opacity: 1;
+	background-size: auto;
+	background-position: center top;
+	background-repeat: repeat;
+	height: 120%;
+	background-image: url(/images/homepage_background.webp);
+	z-index: -1;
+}
+h1 {
+	font: normal normal normal 50px/1.4em Raleway,sans-serif;
+	line-height: 1.3em;
+	text-align:center;
+}
+h2 {
+	font: normal normal normal 24px/1.4em avenir-lt-w01_35-light1475496,sans-serif;
+	color: 212121;
+	line-height: 1.6em;
+	text-align: center; letter-spacing: 0.1em;
+}
+h6 {
+	font: normal normal normal 15px/1.4em avenir-lt-w01_35-light1475496,sans-serif;
+	text-align: center;
+}

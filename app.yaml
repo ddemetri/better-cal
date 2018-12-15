@@ -3,6 +3,16 @@ threadsafe: yes
 api_version: 1
 
 handlers:
+# Static files
+- url: /
+  static_files: static/index.html
+  upload: static/index.html
+
+- url: /googlee4173f5755819c73.html
+  static_files: static/googlee4173f5755819c73.html
+  upload: static/googlee4173f5755819c73.html
+
+# Static directories
 - url: /images
   static_dir: images
 
@@ -12,10 +22,7 @@ handlers:
 - url: /static
   static_dir: static
 
-- url: /googlee4173f5755819c73.html
-  static_files: static/googlee4173f5755819c73.html
-  upload: static/googlee4173f5755819c73.html
-
+# Application
 - url: .*
   script: main.app
   secure: always

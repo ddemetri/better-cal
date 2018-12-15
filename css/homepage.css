@@ -10,18 +10,39 @@
 	background-image: url(/images/homepage_background.webp);
 	z-index: -1;
 }
+body {
+	font: normal normal normal 16px/1.4em avenir-lt-w01_35-light1475496,sans-serif;
+	color: 212121;
+}
 h1 {
 	font: normal normal normal 50px/1.4em Raleway,sans-serif;
 	line-height: 1.3em;
-	text-align:center;
+	color: black;
+	margin-bottom: 0px
 }
 h2 {
 	font: normal normal normal 24px/1.4em avenir-lt-w01_35-light1475496,sans-serif;
-	color: 212121;
 	line-height: 1.6em;
-	text-align: center; letter-spacing: 0.1em;
+	letter-spacing: 0.1em;
+}
+h3 {
+	font: normal normal normal 24px/1.4em avenir-lt-w01_35-light1475496,sans-serif;
+	line-height: 1.6em;
+	letter-spacing: 0.1em;
 }
 h6 {
 	font: normal normal normal 15px/1.4em avenir-lt-w01_35-light1475496,sans-serif;
 	text-align: center;
+}
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align:center;
+}
+uo.center {
+	text-align: left
+}
+.light {
+	color: 555555;
 }

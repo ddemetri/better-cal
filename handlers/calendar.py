@@ -11,6 +11,9 @@ class CalendarHandler(webapp2.RequestHandler):
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/calendar'
 
+		if not set(self.request.arguments()).isdisjoint(['nocache', 'noCache', 'fake']):
+			return
+
 		token = self.request.get('token')
 		credentials = TokenProcessor(token).get_credentials()
 

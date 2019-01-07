@@ -1,0 +1,24 @@
+BEGIN:VCALENDAR
+PRODID:-//Daniel Demetri//Contacts Birthday Calendar//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Birthdays
+X-WR-CALDESC:Birthdays stored in your contacts
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:19000101
+DTEND;VALUE=DATE:19000102
+DTSTAMP:20180107T123000Z
+RRULE:FREQ=DAILY;INTERVAL=1
+UID:fatalerror@contactsbdaycalendar
+X-GOOGLE-CALENDAR-CONTENT-ICON:
+ https://calendar.google.com/googlecalendar/images/cake.gif
+X-GOOGLE-CALENDAR-CONTENT-DISPLAY:chip
+CLASS:PUBLIC
+DESCRIPTION:Better Cal has lost access to your Contacts.
+ \n\n<a href="https://better-cal.appspot.com">Login to fix</a>
+STATUS:CONFIRMED
+SUMMARY:🎂 ERROR: Better Cal Lost Access to Your Contacts
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

@@ -1,4 +1,3 @@
 lib
 *.pyc
-oauth_secrets.json
-urltoken_secrets.json
+secrets

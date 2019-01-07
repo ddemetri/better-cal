@@ -12,6 +12,8 @@ def get_connections(credentials):
 		pageSize=1000,
 		sortOrder='LAST_NAME_ASCENDING',
 		personFields='names,birthdays,phoneNumbers,emailAddresses')
+
+
 	connections = []
 	while request is not None:
 		response = request.execute()

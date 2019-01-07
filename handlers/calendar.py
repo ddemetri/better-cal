@@ -1,6 +1,8 @@
 import datetime
 import webapp2
 
+from oauth2client.client import HttpAccessTokenRefreshError
+
 from connections import get_connections
 from connections import get_birthday
 from connections import get_primary
@@ -9,21 +11,32 @@ from urltoken import TokenProcessor
 
 class CalendarHandler(webapp2.RequestHandler):
 	def get(self):
-		self.response.headers['Content-Type'] = 'text/calendar'
-
 		if not set(self.request.arguments()).isdisjoint(['nocache', 'noCache', 'fake']):
+			self.response.set_status(404)
 			return
 
 		token = self.request.get('token')
 		credentials = TokenProcessor(token).get_credentials()
+		if not credentials:
+			self.response.set_status(404)
+			return
 
 		# Setup template values
+		try:
+			connections = get_connections(credentials)
+		except HttpAccessTokenRefreshError as err:
+			self.response.headers['Content-Type'] = 'text/calendar'
+			template = ical_jinja_environment.get_template('birthdays_error.ical')
+			output = template.render()
+			self.response.write(output)
+			return
+
 		ISO_DATETIME_FORMAT = '{0:%Y}{0:%m}{0:%d}T{0:%H}{0:%M}{0:%S}Z'
 		template_values = {
 			'connections': [],
 			'now': ISO_DATETIME_FORMAT.format(datetime.datetime.utcnow())
 		}
-		for person in get_connections(credentials):
+		for person in connections:
 			birthday = get_birthday(person)
 			name = get_primary(person, 'names', 'displayName')
 			if not name or not birthday:
@@ -48,6 +61,7 @@ class CalendarHandler(webapp2.RequestHandler):
 			
 			
 		# Output calendar
+		self.response.headers['Content-Type'] = 'text/calendar'
 		template = ical_jinja_environment.get_template('birthdays.ical')
 		output = template.render(template_values)
 		self.response.write(output)

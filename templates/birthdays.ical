@@ -18,6 +18,7 @@ X-GOOGLE-CALENDAR-CONTENT-DISPLAY:chip
 CLASS:PUBLIC
 DESCRIPTION:Phone: {{ person.phone }} \nEmail: {{ person.email }}
  \n\n<a href="{{ person.delete_birthday_url }}">Delete birthday from contact</a>
+ \n\nYour calendar last checked Better Cal: {{ now }}
 STATUS:CONFIRMED
 SUMMARY:🎂 {{ person.name }}{{ person.possessive }} birthday
 TRANSP:TRANSPARENT

@@ -28,7 +28,7 @@ def get_birthday(person):
 		source_type = birthday.get('metadata', {}).get('source', {}).get('type')
 		date = birthday.get('date', {})
 		if (source_type == 'CONTACT' and date.get('month') and date.get('day')):
-			return datetime.date(int(date.get('year', 1900)),
+			return datetime.date(max(1900, int(date.get('year', 1900))),
 								 int(date.get('month')),
 								 int(date.get('day')))
 
